@@ -1,0 +1,6 @@
+[package]
+name = "socketCore"
+version = "0.1.0"
+authors = ["John <johnfg2610@gmail.com>"]
+
+[dependencies]
