@@ -1,6 +1,8 @@
 [package]
-name = "socketCore"
+name = "pinger"
 version = "0.1.0"
 authors = ["John <johnfg2610@gmail.com>"]
 
 [dependencies]
+clap = "2.29.2"
+chrono = "0.4"
