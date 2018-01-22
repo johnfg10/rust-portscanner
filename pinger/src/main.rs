@@ -19,29 +19,6 @@ struct LogInfo{
     file: File,
     console_logging_enabled: bool
 }
-/*
-fn log(mut log_info: LogInfo, message: String){
-    writeln!(log_info.file, "{}", message);
-
-    if log_info.console_logging_enabled {
-        print!("{}", message);
-    }
-}*/
-
-/*fn ping_ips(lowest_port: u16, highest_port: u16, mut log_file: File){
-    for x in lowest_port .. highest_port {
-
-        let tcp_stream = TcpStream::connect(SocketAddr::new(IpAddr::from([0, 0, 0, 0]), x));
-
-        match tcp_stream {
-            Ok(stream) => {
-                let mut formatted_string = format!("Tcp server found on port: {} \n", x);
-                log_file.write_all(formatted_string.as_bytes());
-            },
-            Err(er) => eprintln!("{}: {}", x,  er)
-        }
-    }
-}*/
 
 fn ping_tcp(lowest_port: u16, highest_port: u16, ipaddress: &str, mut log_info: LogInfo){
     for port in lowest_port .. highest_port {
@@ -71,12 +48,6 @@ fn main() {
                 .long("output")
                 .value_name("FILE")
                 .help("Sets a custom output file if empty will default to output.txt")
-        )
-        .arg(
-            Arg::with_name("userdatagramprotocol")
-                .short("u")
-                .long("userdatagramprotocol")
-                .help("Sets whether or not to scan for UDP ports")
         )
         .arg(
             Arg::with_name("transfercontrolprotocol")
@@ -126,10 +97,6 @@ fn main() {
         1 => true,
         _ => false
     };
-    let is_udp: bool = match matches.occurrences_of("userdatagramprotocol") {
-        1 => true,
-        _ => false
-    };
 
     if !path.exists() {
         File::create(path).unwrap();
@@ -145,9 +112,4 @@ fn main() {
         println!("pinging ips");
         ping_tcp(minimum_port, maximum_port, ipaddress, log_info);
     }
-
-    if is_udp {
-
-    }
-
 }
